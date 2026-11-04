@@ -63,10 +63,46 @@ $superheroes = [
   ], 
 ];
 
-?>
 
-<ul>
-<?php foreach ($superheroes as $superhero): ?>
-  <li><?= $superhero['alias']; ?></li>
-<?php endforeach; ?>
-</ul>
+// Tell the browser that this endpoint returns HTML.
+header('Content-Type: text/html; charset=UTF-8');
+
+// Read the search input and reject non-string values.
+$query = $_GET['query'] ?? '';
+$query = is_string($query) ? trim($query) : '';
+
+// Escape text before inserting it into HTML.
+function escapeHtml($value) {
+    return htmlspecialchars(
+        $value,
+        ENT_QUOTES | ENT_SUBSTITUTE,
+        'UTF-8'
+    );
+}
+
+// An empty search returns all superhero aliases.
+if ($query === '') {
+    echo '<ul>';
+
+    foreach ($superheroes as $superhero) {
+        echo '<li>' . escapeHtml($superhero['alias']) . '</li>';
+    }
+
+    echo '</ul>';
+    exit;
+}
+
+// Find an exact name or alias, ignoring capitalization.
+foreach ($superheroes as $superhero) {
+    if (
+        strcasecmp($superhero['name'], $query) === 0 ||
+        strcasecmp($superhero['alias'], $query) === 0
+    ) {
+        echo '<h3>' . escapeHtml($superhero['alias']) . '</h3>';
+        echo '<h4>' . escapeHtml($superhero['name']) . '</h4>';
+        echo '<p>' . escapeHtml($superhero['biography']) . '</p>';
+        exit;
+    }
+}
+
+echo '<p class="error">Superhero not found</p>';

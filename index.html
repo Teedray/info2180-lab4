@@ -13,7 +13,23 @@
     </header>
 
     <main>
-        <button id="search-button" type="button">Search</button>
+        <form id="search-form">
+            <label for="search">Search by superhero name or alias</label>
+
+            <div class="search-controls">
+                <input
+                    type="text"
+                    id="search"
+                    name="query"
+                    placeholder="e.g. Ironman"
+                >
+                <button id="search-button" type="submit">Search</button>
+            </div>
+        </form>
+
+        <h2>RESULT</h2>
+        <hr>
+        <div id="result" aria-live="polite"></div>
     </main>
 </body>
 </html>

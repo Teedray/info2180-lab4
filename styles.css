@@ -27,3 +27,36 @@ button {
     font-size: 16px;
     cursor: pointer;
 }
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.search-controls {
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    flex: 1;
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+h2 {
+    margin-top: 32px;
+}
+
+#result {
+    margin-top: 20px;
+    line-height: 1.6;
+}
+
+.error {
+    color: #b83232;
+    font-weight: bold;
+}
